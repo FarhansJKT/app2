@@ -1920,8 +1920,8 @@ router.get('/kuis/tebakgambar', async (req, res, next) => {
         .then(data => {
         var result = data;
              res.json({
-                 image: images,
-		 jawaban: jawaban,
+                 image: result.images,
+		 jawaban: result.jawaban,
              })
          })
          .catch(e => {
