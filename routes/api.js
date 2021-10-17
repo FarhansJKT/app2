@@ -1,5 +1,5 @@
 __path = process.cwd()
-
+var fs = require('fs')
 var express = require('express');
 var db = require(__path + '/database/db');
 try {
@@ -7,7 +7,7 @@ var zahirr = db.get("zahirr");
 } catch (e) {
 	console.log('')
 }
-
+var jodoh = JSON.parse(fs.readFileSync('./database/jodoh.json'))
 var creatorList = ['@farhan','@Fhans'];
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)];
 
