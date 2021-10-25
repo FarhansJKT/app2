@@ -35,7 +35,8 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
+    const user = users.find
     
 })
 router.get('/about', (req, res) => {
