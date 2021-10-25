@@ -1,9 +1,7 @@
 __path = process.cwd()
 const users = [
-    // This user is added to the array to avoid creating a new user on each restart
     {
-        username: 'farhans',
-        // This is the SHA256 hash for value of `password`
+        email: 'farhans',
         password: 'Woe'
     }
 ];
@@ -36,9 +34,16 @@ router.get('/login', (req, res) => {
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
-    const user = users.find
-    
+    const user = users.find(u => {
+        return u.email === email && password === u.password
+    });
+    if (user) {
+        res.redirect('/api');
+    } else {
+        res.redirect('/login');
+    }
 })
+
 router.get('/about', (req, res) => {
     res.sendFile(__path + '/views/about.html')
 })
