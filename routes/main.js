@@ -1,8 +1,8 @@
 __path = process.cwd()
 const users = [
     {
-        email: 'farhans',
-        password: 'Woe'
+        email: 'nasiroh.mbadrun@gmail.com',
+        password: '1234'
     }
 ];
 var cok = ["ANDREW","KELLY","MAXIM","ADAM","PRIMIS","CAROLINE","KAPPELA","FORD","MISYA","RAFAELA","ANTONIO","JOSEPH","WOLFRAH","ALOK","EVE","NULA","K","ALFARO"]
