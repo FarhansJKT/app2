@@ -23,6 +23,10 @@ router.get('/index.html', (req, res) => {
     res.sendFile(__path + '/views/index.html')
 })
 
+router.get('/login', (req, red) => {
+    res.sendFile(__path + '/views/login.html')
+})
+
 router.get('/about', (req, res) => {
     res.sendFile(__path + '/views/about.html')
 })
