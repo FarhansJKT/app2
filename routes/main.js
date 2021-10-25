@@ -36,9 +36,9 @@ router.post('/login', (req, res) => {
     });
     if (user) {
         res.redirect('/api');
-    }
-    return;
-})
+    } else {
+        res.redirect('/login');
+}})
 
 router.get('/about', (req, res) => {
     res.sendFile(__path + '/views/about.html')
