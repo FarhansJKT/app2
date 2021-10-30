@@ -6,6 +6,7 @@ const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
 var router = express.Router();
+var bodyParser = require('body-parser'); 
 
 router.get('/', (req, res) => {
     res.sendFile(__path + '/views/docs.html')
