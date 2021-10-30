@@ -33,8 +33,8 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-    const email = req.email;
-    const password = req.password;
+    const email = req.body.email;
+    const password = req.body.password;
 
     const user = users.find(u => {
         return u.email === email && password === u.password
