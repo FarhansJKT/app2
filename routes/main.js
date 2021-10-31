@@ -9,7 +9,7 @@ var router = express.Router();
 var bodyParser = require('body-parser'); 
 
 router.get('/', (req, res) => {
-    res.sendFile(__path + '/views/docs.html')
+    res.redirect('/login')
 })
 
 router.get('/api', (req, res) => {
@@ -17,9 +17,6 @@ router.get('/api', (req, res) => {
 })
 
 router.get('/docs', (req, res) => {
-    if (!user) {
-        res.redirect('/login')
-    } else {
     res.sendFile(__path + '/views/docs.html')
 }})
 
