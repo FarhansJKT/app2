@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Bootstrap Snippet: Login Form</title>
-  <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'><link rel="stylesheet" href="./style_login.css">
-
+<html lang="en">
+   <head>
+        <title>sign-in</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="wrapper">
-    <form class="form-signin" action="/login" method="post">       
-      <h2 class="form-signin-heading">Please login</h2>
-      <input type="text" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
-      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
-      <label class="checkbox">
-        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-      </label>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
-    </form>
-  </div>
-<!-- partial -->
-  
-</body>
+    <div class="login">
+            <div class="account-login">
+               <h1>Account Login</h1>
+               <form action="/login" class="login-form" method="post">
+                  <div class="form-group">
+                     <input type="text" name="email" placeholder="User Name" class="form-control">
+                  </div>
+                  <div class="form-group">
+                     <input type="password" name="password" placeholder="Password"  class="form-control">
+                  </div>
+                  <div class="remember">
+                     <label class="custom-checkbox">Remember me
+                     <input type="checkbox">
+                     <span class="checkmark"></span>
+                     </label>
+                     <a href="#" class="pull-right">Forgot Password?</a>
+                  </div>
+                  <button class="btn">Login</button>
+                  <p>Are you new?<a href="/register">Sign Up</a></p>
+               </form>
+            </div>
+        </div>
+   </body>
 </html>
