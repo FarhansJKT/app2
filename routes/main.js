@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
 
 
     if (user) {
-        res.redirect('/api');
+        res.redirect('/docs');
     }
 })
 
