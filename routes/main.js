@@ -9,7 +9,7 @@ var router = express.Router();
 var bodyParser = require('body-parser'); 
 
 router.get('/', (req, res) => {
-    res.redirect('/login')
+    res.sendFile(__path + '/views/home.html')
 })
 
 router.get('/api', (req, res) => {
