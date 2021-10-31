@@ -17,8 +17,11 @@ router.get('/api', (req, res) => {
 })
 
 router.get('/docs', (req, res) => {
+    if (!user) {
+        res.redirect('/login')
+    } else {
     res.sendFile(__path + '/views/docs.html')
-})
+}})
 
 router.get('/mabar', (req, res) => {
     res.sendFile(__path + '/views/mabar.html')
@@ -39,8 +42,6 @@ router.post('/login', (req, res) => {
     const user = users.find(u => {
         return u.email === email && password === u.password
     });
-
-
     if (user) {
         res.redirect('/docs');
     }
