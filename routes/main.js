@@ -18,7 +18,7 @@ router.get('/api', (req, res) => {
 
 router.get('/docs', (req, res) => {
     res.sendFile(__path + '/views/docs.html')
-}})
+})
 
 router.get('/mabar', (req, res) => {
     res.sendFile(__path + '/views/mabar.html')
