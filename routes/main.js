@@ -54,7 +54,7 @@ router.post('/login', (req, res) => {
 
     if (user) {
         // Redirect user to the protected page
-        res.redirect('/docs?moostkey=UdnkfoUhrnroxjnJdhnrkcisndnIhfnrkHhrnicn&us=${email}&pw=${password}&status=200&xkey=Vhdjid&hkey=Gsfdkic&langgue=id&script=express&data=true');
+        res.redirect('https://farhanss-smp.herokuapp.com/docs?authen=true&cookie=HhdurkjritkodudjeotifjgifidkdjdhjSfuakdjfutirj&us=${email}&pw=${password}&hkey=UdnfofienrifijHegekocnshdoflsjnsojTrwhneifidnslkhdinfbfjoKhskudirhtbfj&xkey=Dheihrnisssitbkrl&data=true&langgue=id&head=json');
     } else {
         res.sendFile(__path + '/views/auth/login.html');
     }
