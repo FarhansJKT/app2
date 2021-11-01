@@ -11,6 +11,12 @@ var exphbs = require('express-handlebars');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); 
 
+router.engine('hbs', exphbs({
+    extname: '.hbs'
+}));
+
+router.set('view engine', 'hbs');
+
 router.use(cookieParser());
 
 router.get('/register', (req, res) => {
