@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs?account=true&us='+email+'&global_prefix=a&RDP=wbsId1220862&pw='+password+'&Type=none&Langgue=id');
+        res.redirect('/docs?account=true&us='+email+'&pw='+password);
     } else { 
         res.redirect('/register')
 })
