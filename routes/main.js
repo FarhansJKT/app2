@@ -5,6 +5,7 @@ const cok2 = ["https://j.top4top.io/p_2000nz52c0.jpg","https://f.top4top.io/p_20
 const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
+var { fetchJson } = require(__path + '/lib/fetcher.js')
 var fetch = require('node-fetch');
 
 var router = express.Router();
@@ -46,34 +47,26 @@ router.post('/register', (req, res) => {
     }
 });
 
-const requireAuth = (req, res) => {
-    if (user) {
-        next();
-    } else {
-        res.redirect('/login');
-    }
-};
-
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
 
     const anu = tuh(email, password)
 
     if (anu == "verify") {
-         us = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${email}')
-         pw = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${password}')
+         us = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${email}')
+         pw = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${password}')
          hkey-nf = us.result.encode
          xkey-nf = pw.result.encode
         // Redirect user to the protected page
-        res.redirect('/docs?hkey-nf=${hkey-nf}&xkey-nf=${xkey-nf}');
+        res.redirect('/docs?hkeynf=${hkey-nf}&xkey-nf=${xkeynf}');
     } else {
         res.sendFile(__path + '/views/auth/login.html');
     }
 });
 
 router.get('/docs', (req, res, next) => {
-    const hkey = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.hkey-nf}')
-    const xkey = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.xkey-nf}')
+    const hkey = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.hkeynnf}')
+    const xkey = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.xkeynf}')
     const user = tuh('${hkey.result.string}', '${xkey.result.string}')
       if (user == "verify") {
          res.sendFile(__path + '/views/docs.html');
