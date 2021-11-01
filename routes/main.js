@@ -6,11 +6,8 @@ const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
 var router = express.Router();
-var crypto = require('crypto');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); 
-
-router.use(cookieParser());
 
 router.get('/register', (req, res) => {
     res.sendFile(__path + '/views/auth/register.html');
@@ -26,23 +23,16 @@ router.post('/register', (req, res) => {
         if (users.find(user => user.email === email)) {
 
             res.sendFile(__path + '/views/auth/register.html');
-            return;
         }
 
         // Store user into the database if you are using one
         users.push({username,email,password});
 
-        res.sendFile(__path + '/views/auth/login.html');
+        res.redirect('/login');
     } else {
         res.sendFile(__path + '/views/auth/register.html');
     }
 });
-
-const generateAuthToken = () => {
-    return crypto.randomBytes(30).toString('hex');
-}
-
-const authTokens = {};
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -52,28 +42,12 @@ router.post('/login', (req, res) => {
     });
 
     if (user) {
-        const authToken = generateAuthToken();
-
-        // Store authentication token
-        authTokens[authToken] = user;
-
-        // Setting the auth token in cookies
-        res.cookie('AuthToken', authToken);
 
         // Redirect user to the protected page
         res.redirect('/docs');
     } else {
         res.sendFile(__path + '/views/auth/login.html');
     }
-});
-
-router.use((req, res, next) => {
-    // Get auth token from the cookies
-    const authToken = req.cookies['AuthToken'];
-
-    req.user = authTokens[authToken];
-
-    next();
 });
 
 router.get('/docs', (req, res) => {
