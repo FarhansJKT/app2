@@ -91,9 +91,10 @@ router.post('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs?account=true&us='+email+'&pw='+password);
+        res.redirect('/docs?account=true&us='+email+'&pw='+password+'&id=Langgue&xkey=6Hdjfjoejrolskfufjfijfks&Apikey=Nisa&Cookie=HHAAAATdhrhifjrofifjdirifjjfififjfsidjfjfjfufngogjgkorkfifjosk6iyfj');
     } else { 
         res.redirect('/register')
+    }
 })
 
 router.get('/about', (req, res) => {
