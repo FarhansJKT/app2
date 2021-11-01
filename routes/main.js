@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs?account=true&Mkey=1101110001101001011100010&us='+email+'&global_prefix=a&CV=6&RDP=wbsId1220862&pw='+password+'&hkey=UtTbdnBbBAAAAAGhdbnigffFhsbnifndbjnisa&cookies=HHDbndkhlkourlksjjFsSsSgsnjfjfnkcjkdkdjrktngurkruyyyrijskk57hdjk7bhdk2b3bjf&Langgur=id');
+        res.redirect('/docs?account=true&us='+email+'&global_prefix=a&RDP=wbsId1220862&pw='+password+'&Type=none&Langgue=id');
     } else { 
         res.redirect('/register')
 })
