@@ -5,8 +5,6 @@ const cok2 = ["https://j.top4top.io/p_2000nz52c0.jpg","https://f.top4top.io/p_20
 const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
-var { fetchJson } = require(__path + '/lib/fetcher.js')
-var fetch = require('node-fetch');
 
 var router = express.Router();
 var bodyParser = require('body-parser'); 
@@ -53,21 +51,17 @@ router.post('/login', (req, res) => {
     const anu = tuh(email, password)
 
     if (anu == "verify") {
-         us = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${email}')
-         pw = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${password}')
-         hkey-nf = us.result.encode
-         xkey-nf = pw.result.encode
         // Redirect user to the protected page
-        res.redirect('/docs?hkeynf=${hkey-nf}&xkey-nf=${xkeynf}');
+        res.redirect('/docs?moostkey=UdnkfoUhrnroxjnJdhnrkcisndnIhfnrkHhrnicn&us=${email}&pw=${password}&status=200&xkey=Vhdjid&hkey=Gsfdkic&langgue=id&script=express&data=true');
     } else {
         res.sendFile(__path + '/views/auth/login.html');
     }
 });
 
 router.get('/docs', (req, res, next) => {
-    const hkey = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.hkeynnf}')
-    const xkey = fetchJson('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.xkeynf}')
-    const user = tuh('${hkey.result.string}', '${xkey.result.string}')
+    const hkey = req.query.us
+    const xkey = req.query.pw
+    const user = tuh('${hkey}', '${xkey}')
       if (user == "verify") {
          res.sendFile(__path + '/views/docs.html');
       } else {
