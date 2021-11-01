@@ -80,7 +80,7 @@ router.get('/index.html', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.sendFile(__path + '/views/login.html')
+    res.sendFile(__path + '/views/auth/login.html')
 })
 
 router.post('/login', (req, res) => {
@@ -91,8 +91,9 @@ router.post('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs?account=true&us='+email+'&pw='+password);
-    }
+        res.redirect('/docs?account=true&Mkey=1101110001101001011100010&us='+email+'&global_prefix=a&CV=6&RDP=wbsId1220862&pw='+password+'&hkey=UtTbdnBbBAAAAAGhdbnigffFhsbnifndbjnisa&cookies=HHDbndkhlkourlksjjFsSsSgsnjfjfnkcjkdkdjrktngurkruyyyrijskk57hdjk7bhdk2b3bjf&Langgur=id');
+    } else { 
+        res.redirect('/register')
 })
 
 router.get('/about', (req, res) => {
