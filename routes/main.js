@@ -48,9 +48,11 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
 
-    const anu = tuh(email, password)
+    const user = users.find(u => {
+        return u.email === email && password === u.password
+    });
 
-    if (anu == "verify") {
+    if (user) {
         // Redirect user to the protected page
         res.redirect('/docs?moostkey=UdnkfoUhrnroxjnJdhnrkcisndnIhfnrkHhrnicn&us=${email}&pw=${password}&status=200&xkey=Vhdjid&hkey=Gsfdkic&langgue=id&script=express&data=true');
     } else {
@@ -59,10 +61,13 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/docs', (req, res, next) => {
-    const hkey = req.query.us
-    const xkey = req.query.pw
-    const user = tuh('${hkey}', '${xkey}')
-      if (user == "verify") {
+    const nisa = req.query.us
+    const wahyu = req.query.pw
+    const user = users.find(u => {
+        return u.email === nisa && wahyu === u.password
+    });
+
+      if (user) {
          res.sendFile(__path + '/views/docs.html');
       } else {
          res.redirect('/login')
