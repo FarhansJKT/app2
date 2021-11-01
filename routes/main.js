@@ -1,5 +1,5 @@
 __path = process.cwd()
-const users = [{"email": "nf@nf.io","password": "Bisnis"}]
+const users = [{"username": "guest","email": "nf@nf.io","password": "Bisnis"}]
 var cok = ["ANDREW","KELLY","MAXIM","ADAM","PRIMIS","CAROLINE","KAPPELA","FORD","MISYA","RAFAELA","ANTONIO","JOSEPH","WOLFRAH","ALOK","EVE","NULA","K","ALFARO"]
 const cok2 = ["https://j.top4top.io/p_2000nz52c0.jpg","https://f.top4top.io/p_2000d8zax0.jpg","https://c.top4top.io/p_20005873f0.jpg","https://c.top4top.io/p_20005873f0.jpg","https://f.top4top.io/p_2000law1b0.jpg","https://f.top4top.io/p_2000law1b0.jpg","https://a.top4top.io/p_20008ycwg0.jpg","https://a.top4top.io/p_20008ycwg0.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://k.top4top.io/p_2000vcx7b0.jpg","https://k.top4top.io/p_2000vcx7b0.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://i.top4top.io/p_20004n6yr0.jpg","https://k.top4top.io/p_2000er2p70.jpg","https://k.top4top.io/p_2000er2p70.jpg","https://f.top4top.io/p_200090elb0.jpg","https://f.top4top.io/p_200090elb0.jpg","https://i.top4top.io/p_2000ijyh60.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://f.top4top.io/p_2001xk3710.jpg","https://f.top4top.io/p_2001xk3710.jpg","https://h.top4top.io/p_2001uiy7d0.jpg","https://h.top4top.io/p_2001uiy7d0.jpg","https://h.top4top.io/p_2001uiy7d0.jpg","https://f.top4top.io/p_2001cm0tf0.jpg","https://f.top4top.io/p_2001cm0tf0.jpg","https://a.top4top.io/p_2001dvwvb0.jpg","https://a.top4top.io/p_2001dvwvb0.jpg","https://a.top4top.io/p_2001dvwvb0.jpg","https://e.top4top.io/p_20014ubtk0.jpg","https://e.top4top.io/p_20014ubtk0.jpg","https://j.top4top.io/p_20011c1110.jpg","https://j.top4top.io/p_20011c1110.jpg","https://i.top4top.io/p_2001xfygs0.jpg","https://i.top4top.io/p_2001xfygs0.jpg","https://i.top4top.io/p_2001xfygs0.jpg"]
 const pap = cok2[Math.floor(Math.random() * cok2.length)];
@@ -7,56 +7,34 @@ var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
-var exphbs = require('express-handlebars');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); 
-
-router.engine('hbs', exphbs({
-    extname: '.hbs'
-}));
-
-router.set('view engine', 'hbs');
 
 router.use(cookieParser());
 
 router.get('/register', (req, res) => {
-    res.render('register');
+    res.sendFile(__path + '/views/auth/register.html');
 });
 
 router.post('/register', (req, res) => {
-    const { email, firstName, lastName, password, confirmPassword } = req.body;
+    const { username, email, password, password2 } = req.body;
 
     // Check if the password and confirm password fields match
-    if (password === confirmPassword) {
+    if (password === password2) {
 
         // Check if user with the same email is also registered
         if (users.find(user => user.email === email)) {
 
-            res.render('register', {
-                message: 'User already registered.',
-                messageClass: 'alert-danger'
-            });
-
+            res.sendFile(__path + '/views/auth/register.html');
             return;
         }
 
         // Store user into the database if you are using one
-        users.push({
-            firstName,
-            lastName,
-            email,
-            password
-        });
+        users.push({username,email,password});
 
-        res.render('login', {
-            message: 'Registration Complete. Please login to continue.',
-            messageClass: 'alert-success'
-        });
+        res.sendFile(__path + '/views/auth/login.html');
     } else {
-        res.render('register', {
-            message: 'Password does not match.',
-            messageClass: 'alert-danger'
-        });
+        res.sendFile(__path + '/views/auth/register.html');
     }
 });
 
@@ -85,10 +63,7 @@ router.post('/login', (req, res) => {
         // Redirect user to the protected page
         res.redirect('/docs');
     } else {
-        res.render('login', {
-            message: 'Invalid username or password',
-            messageClass: 'alert-danger'
-        });
+        res.sendFile(__path + '/views/auth/login.html');
     }
 });
 
@@ -105,10 +80,7 @@ router.get('/docs', (req, res) => {
     if (req.user) {
         res.sendFile(__path + '/views/docs.html');
     } else {
-        res.render('login', {
-            message: 'Please login to continue',
-            messageClass: 'alert-danger'
-        });
+        res.sendFile(__path + '/views/auth/login.html');
     }
 });
 
@@ -116,10 +88,7 @@ const requireAuth = (req, res, next) => {
     if (req.user) {
         next();
     } else {
-        res.render('login', {
-            message: 'Please login to continue',
-            messageClass: 'alert-danger'
-        });
+        res.redirect('/login');
     }
 };
 
