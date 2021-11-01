@@ -30,7 +30,6 @@
     "cheerio": "^1.0.0-rc.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-handlebars": "latest",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "mongodb": "^3.6.3",
