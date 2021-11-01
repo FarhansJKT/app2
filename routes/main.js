@@ -90,7 +90,7 @@ router.get('/index.html', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.sendFile(__path + '/views/auth/login.hbs')
+    res.sendFile(__path + '/views/auth/login.html')
 })
 
 /*router.post('/login', (req, res) => {
