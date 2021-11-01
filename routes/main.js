@@ -5,8 +5,21 @@ const cok2 = ["https://j.top4top.io/p_2000nz52c0.jpg","https://f.top4top.io/p_20
 const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
+var fetch = require('node-fetch');
+
 var router = express.Router();
 var bodyParser = require('body-parser'); 
+
+const tuh = (email, password) => {
+    const user = users.find(u => {
+        return u.email === email && password === u.password
+    });
+    if (user) {
+        return "verify"
+    } else {
+        return "not"
+    }
+}
 
 router.get('/register', (req, res) => {
     res.sendFile(__path + '/views/auth/register.html');
@@ -33,40 +46,40 @@ router.post('/register', (req, res) => {
     }
 });
 
-router.post('/login', (req, res) => {
-    const { email, password } = req.body;
-
-    const user = users.find(u => {
-        return u.email === email && password === u.password
-    });
-
+const requireAuth = (req, res) => {
     if (user) {
-
-        // Redirect user to the protected page
-        res.redirect('/docs');
-    } else {
-        res.sendFile(__path + '/views/auth/login.html');
-    }
-});
-
-router.get('/docs', (req, res) => {
-    if (req.user) {
-        res.sendFile(__path + '/views/docs.html');
-    } else {
-        res.sendFile(__path + '/views/auth/login.html');
-    }
-});
-
-const requireAuth = (req, res, next) => {
-    if (req.user) {
         next();
     } else {
         res.redirect('/login');
     }
 };
 
-router.get('/docs', requireAuth, (req, res) => {
-    res.sendFile(__path + '/views/docs.html');
+router.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    const anu = tuh(email, password)
+
+    if (anu == "verify") {
+         us = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${email}')
+         pw = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&encode=${password}')
+         hkey-nf = us.result.encode
+         xkey-nf = pw.result.encode
+        // Redirect user to the protected page
+        res.redirect('/docs?hkey-nf=${hkey-nf}&xkey-nf=${xkey-nf}');
+    } else {
+        res.sendFile(__path + '/views/auth/login.html');
+    }
+});
+
+router.get('/docs', (req, res, next) => {
+    const hkey = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.hkey-nf}')
+    const xkey = fetch('https://ziy.herokuapp.com/api/base?type=base64&apikey=xZiyy&decode=${req.query.xkey-nf}')
+    const user = tuh('${hkey.result.string}', '${xkey.result.string}')
+      if (user == "verify") {
+         res.sendFile(__path + '/views/docs.html');
+      } else {
+         res.redirect('/login')
+      }
 });
 
 router.get('/', (req, res) => {
