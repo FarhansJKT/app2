@@ -45,12 +45,6 @@ router.post('/register', (req, res) => {
     }
 });
 
-router.post('/login', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    res.redirect('/docs?authen=true&cookie=HhdurkjritkodudjeotifjgifidkdjdhjSfuakdjfutirj&us=${email}&pw=${password}&hkey=UdnfofienrifijHegekocnshdoflsjnsojTrwhneifidnslkhdinfbfjoKhskudirhtbfj&xkey=Dheihrnisssitbkrl&data=true&langgue=id&head=json');
-});
-
 router.get('/docs', (req, res, next) => {
     const nisa = req.query.us
     const wahyu = req.query.pw
@@ -58,11 +52,11 @@ router.get('/docs', (req, res, next) => {
         return u.email === nisa && wahyu === u.password
     });
 
-      if (user) {
-         res.sendFile(__path + '/views/docs.html');
-      } else {
-         res.redirect('/login')
-      }
+        if (user) {
+             res.sendFile(__path + '/views/docs.html');
+        } else {
+             res.redirect('/login')
+        }
 });
 
 router.get('/', (req, res) => {
@@ -89,7 +83,7 @@ router.get('/login', (req, res) => {
     res.sendFile(__path + '/views/login.html')
 })
 
-/*router.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -97,9 +91,9 @@ router.get('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs');
+        res.redirect('/docs?account=true&us='+email+'&pw='+password);
     }
-})*/
+})
 
 router.get('/about', (req, res) => {
     res.sendFile(__path + '/views/about.html')
