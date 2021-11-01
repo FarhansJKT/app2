@@ -46,18 +46,9 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    const { email, password } = req.body;
-
-    const user = users.find(u => {
-        return u.email === email && password === u.password
-    });
-
-    if (user) {
-        // Redirect user to the protected page
-        res.redirect('https://farhanss-smp.herokuapp.com/docs?authen=true&cookie=HhdurkjritkodudjeotifjgifidkdjdhjSfuakdjfutirj&us=${email}&pw=${password}&hkey=UdnfofienrifijHegekocnshdoflsjnsojTrwhneifidnslkhdinfbfjoKhskudirhtbfj&xkey=Dheihrnisssitbkrl&data=true&langgue=id&head=json');
-    } else {
-        res.sendFile(__path + '/views/auth/login.html');
-    }
+    const email = req.body.email;
+    const password = req.body.password;
+    res.redirect('/docs?authen=true&cookie=HhdurkjritkodudjeotifjgifidkdjdhjSfuakdjfutirj&us=${email}&pw=${password}&hkey=UdnfofienrifijHegekocnshdoflsjnsojTrwhneifidnslkhdinfbfjoKhskudirhtbfj&xkey=Dheihrnisssitbkrl&data=true&langgue=id&head=json');
 });
 
 router.get('/docs', (req, res, next) => {
