@@ -6,7 +6,120 @@ const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
 var router = express.Router();
+var crypto = require('crypto');
+var exphbs = require('express-handlebars');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); 
+
+router.use(cookieParser());
+
+router.get('/register', (req, res) => {
+    res.render(__path + '/views/auth/register.hbs');
+});
+
+router.post('/register', (req, res) => {
+    const { email, firstName, lastName, password, confirmPassword } = req.body;
+
+    // Check if the password and confirm password fields match
+    if (password === confirmPassword) {
+
+        // Check if user with the same email is also registered
+        if (users.find(user => user.email === email)) {
+
+            res.sendFile(__path + '/views/auth/register.hbs', {
+                message: 'User already registered.',
+                messageClass: 'alert-danger'
+            });
+
+            return;
+        }
+
+        // Store user into the database if you are using one
+        users.push({
+            firstName,
+            lastName,
+            email,
+            password
+        });
+
+        res.sendFile(__path + '/views/auth/login.hbs', {
+            message: 'Registration Complete. Please login to continue.',
+            messageClass: 'alert-success'
+        });
+    } else {
+        res.sendFile(__path + '/views/auth/register.hbs', {
+            message: 'Password does not match.',
+            messageClass: 'alert-danger'
+        });
+    }
+});
+
+const generateAuthToken = () => {
+    return crypto.randomBytes(30).toString('hex');
+}
+
+const authTokens = {};
+
+router.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    const user = users.find(u => {
+        return u.email === email && password === u.password
+    });
+
+    if (user) {
+        const authToken = generateAuthToken();
+
+        // Store authentication token
+        authTokens[authToken] = user;
+
+        // Setting the auth token in cookies
+        res.cookie('AuthToken', authToken);
+
+        // Redirect user to the protected page
+        res.redirect('/docs');
+    } else {
+        res.sendFile(__path + '/views/auth/login.hbs', {
+            message: 'Invalid username or password',
+            messageClass: 'alert-danger'
+        });
+    }
+});
+
+router.use((req, res, next) => {
+    // Get auth token from the cookies
+    const authToken = req.cookies['AuthToken'];
+
+    req.user = authTokens[authToken];
+
+    next();
+});
+
+router.get('/docs', (req, res) => {
+    if (req.user) {
+        res.sendFile(__path + '/views/docs.html');
+    } else {
+        res.sendFile(__path + '/views/auth/login.hbs', {
+            message: 'Please login to continue',
+            messageClass: 'alert-danger'
+        });
+    }
+});
+
+const requireAuth = (req, res, next) => {
+    if (req.user) {
+        next();
+    } else {
+        res.sendFile(__path + '/views/auth/login.hbs', {
+            message: 'Please login to continue',
+            messageClass: 'alert-danger'
+        });
+    }
+};
+
+router.get('/docs', requireAuth, (req, res) => {
+    res.sendFile(__path + '/views/docs.html');
+});
 
 router.get('/', (req, res) => {
     res.sendFile(__path + '/views/home.html')
@@ -16,9 +129,9 @@ router.get('/api', (req, res) => {
     res.sendFile(__path + '/views/index.html')
 })
 
-router.get('/docs', (req, res) => {
+/*router.get('/docs', (req, res) => {
     res.sendFile(__path + '/views/docs.html')
-})
+})*/
 
 router.get('/mabar', (req, res) => {
     res.sendFile(__path + '/views/mabar.html')
@@ -29,10 +142,10 @@ router.get('/index.html', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.sendFile(__path + '/views/login.html')
+    res.sendFile(__path + '/views/auth/login.hbs')
 })
 
-router.post('/login', (req, res) => {
+/*router.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -42,7 +155,7 @@ router.post('/login', (req, res) => {
     if (user) {
         res.redirect('/docs');
     }
-})
+})*/
 
 router.get('/about', (req, res) => {
     res.sendFile(__path + '/views/about.html')
@@ -70,7 +183,7 @@ router.get('/config', (req, res) => {
     res.json(config)
 })
 
-router.get('/register', (req, res) => {
+/*router.get('/register', (req, res) => {
     config = {
         status: true,
         result: {
@@ -80,7 +193,7 @@ router.get('/register', (req, res) => {
         }
     }
     res.json(config)
-})
+})*/
 
 router.get('/linkbokep', (req, res) => {
     config = {
