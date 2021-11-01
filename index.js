@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var cookie
 var mainrouter = require('./routes/main'),
     apirouter = require('./routes/api')
-    auther = require('./routes/auth')
 
 var app = express()
 app.enable('trust proxy');
@@ -19,7 +18,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', mainrouter)
 app.use('/api', apirouter)
-app.use('/auth', auther)
 
 app.listen(PORT, () => {
     console.log(color("Server running on port " + PORT,'green'))
