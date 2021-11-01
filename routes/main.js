@@ -14,7 +14,7 @@ var bodyParser = require('body-parser');
 router.use(cookieParser());
 
 router.get('/register', (req, res) => {
-    res.render(__path + '/views/auth/register.hbs');
+    res.render('register');
 });
 
 router.post('/register', (req, res) => {
@@ -26,7 +26,7 @@ router.post('/register', (req, res) => {
         // Check if user with the same email is also registered
         if (users.find(user => user.email === email)) {
 
-            res.sendFile(__path + '/views/auth/register.hbs', {
+            res.render('register', {
                 message: 'User already registered.',
                 messageClass: 'alert-danger'
             });
@@ -42,12 +42,12 @@ router.post('/register', (req, res) => {
             password
         });
 
-        res.sendFile(__path + '/views/auth/login.hbs', {
+        res.render('login', {
             message: 'Registration Complete. Please login to continue.',
             messageClass: 'alert-success'
         });
     } else {
-        res.sendFile(__path + '/views/auth/register.hbs', {
+        res.render('register', {
             message: 'Password does not match.',
             messageClass: 'alert-danger'
         });
@@ -79,7 +79,7 @@ router.post('/login', (req, res) => {
         // Redirect user to the protected page
         res.redirect('/docs');
     } else {
-        res.sendFile(__path + '/views/auth/login.hbs', {
+        res.render('login', {
             message: 'Invalid username or password',
             messageClass: 'alert-danger'
         });
@@ -99,7 +99,7 @@ router.get('/docs', (req, res) => {
     if (req.user) {
         res.sendFile(__path + '/views/docs.html');
     } else {
-        res.sendFile(__path + '/views/auth/login.hbs', {
+        res.render('login', {
             message: 'Please login to continue',
             messageClass: 'alert-danger'
         });
@@ -110,7 +110,7 @@ const requireAuth = (req, res, next) => {
     if (req.user) {
         next();
     } else {
-        res.sendFile(__path + '/views/auth/login.hbs', {
+        res.render('login', {
             message: 'Please login to continue',
             messageClass: 'alert-danger'
         });
