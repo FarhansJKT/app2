@@ -18,7 +18,7 @@ const encc = (text) => {
 })
 
 const decc = (text) => {
-    Base(base64, text)
+    Base('b64dec', text)
     .then(res => {
          return res.result.string
     })
