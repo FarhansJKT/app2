@@ -24,6 +24,26 @@ const decc = (text) => {
     })
 }
 
+const generateToken = (email, password) => {
+var len = 15
+        var arr = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        var random = '';
+
+        for (var i = len; i > 0; i--) {
+            random += arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        var lenn = 5
+        var randomlagi = '';
+
+        for (var i = lenn; i > 0; i--) {
+            randomlagi += arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        var randomTextNumber = random+randomlagi+'--LOGGER';
+        return randomTextNumber
+}
+
 const tuh = (email, password) => {
     const user = users.find(u => {
         return u.email === email && password === u.password
