@@ -1,4 +1,5 @@
 __path = process.cwd()
+const tokens = [{"value": "GevdnxokdnUegjdienDdbdjo"}]
 const users = [{"username": "guest","email": "nf@nf.io","password": "Bisnis"}]
 var cok = ["ANDREW","KELLY","MAXIM","ADAM","PRIMIS","CAROLINE","KAPPELA","FORD","MISYA","RAFAELA","ANTONIO","JOSEPH","WOLFRAH","ALOK","EVE","NULA","K","ALFARO"]
 const cok2 = ["https://j.top4top.io/p_2000nz52c0.jpg","https://f.top4top.io/p_2000d8zax0.jpg","https://c.top4top.io/p_20005873f0.jpg","https://c.top4top.io/p_20005873f0.jpg","https://f.top4top.io/p_2000law1b0.jpg","https://f.top4top.io/p_2000law1b0.jpg","https://a.top4top.io/p_20008ycwg0.jpg","https://a.top4top.io/p_20008ycwg0.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://d.top4top.io/p_2000bkai10.jpg","https://k.top4top.io/p_2000vcx7b0.jpg","https://k.top4top.io/p_2000vcx7b0.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://l.top4top.io/p_2000yizt80.jpg","https://i.top4top.io/p_20004n6yr0.jpg","https://k.top4top.io/p_2000er2p70.jpg","https://k.top4top.io/p_2000er2p70.jpg","https://f.top4top.io/p_200090elb0.jpg","https://f.top4top.io/p_200090elb0.jpg","https://i.top4top.io/p_2000ijyh60.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://h.top4top.io/p_2000bj0rx0.jpg","https://f.top4top.io/p_2001xk3710.jpg","https://f.top4top.io/p_2001xk3710.jpg","https://h.top4top.io/p_2001uiy7d0.jpg","https://h.top4top.io/p_2001uiy7d0.jpg","https://h.top4top.io/p_2001uiy7d0.jpg","https://f.top4top.io/p_2001cm0tf0.jpg","https://f.top4top.io/p_2001cm0tf0.jpg","https://a.top4top.io/p_2001dvwvb0.jpg","https://a.top4top.io/p_2001dvwvb0.jpg","https://a.top4top.io/p_2001dvwvb0.jpg","https://e.top4top.io/p_20014ubtk0.jpg","https://e.top4top.io/p_20014ubtk0.jpg","https://j.top4top.io/p_20011c1110.jpg","https://j.top4top.io/p_20011c1110.jpg","https://i.top4top.io/p_2001xfygs0.jpg","https://i.top4top.io/p_2001xfygs0.jpg","https://i.top4top.io/p_2001xfygs0.jpg"]
@@ -83,14 +84,22 @@ router.post('/register', (req, res) => {
 router.get('/docs', (req, res, next) => {
     const key1 = req.query.HSID
     const key2 = req.query.SHID
+    const key3 = req.query.LOGIN_ID
     const nisa = decc(key1)
     const wahyu = decc(key2)
     const user = users.find(u => {
         return u.email === nisa && wahyu === u.password
     });
+    const session = tokens.find(i => {
+        return i.value === key3
+    });
 
         if (user) {
-             res.sendFile(__path + '/views/docs.html');
+             if (session) {
+                  res.sendFile(__path + '/views/docs.html');
+             } else {
+                  res.redirect('/login')
+             }
         } else {
              res.redirect('/login')
         }
@@ -128,7 +137,9 @@ router.post('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs?account=true&HSID='+encc(email)+'&SHID='+encc(password));
+        t = generateToken(email, password)
+        tokens.push({value: t});
+        res.redirect('/docs?account=true&HSID='+encc(email)+'&SHID='+encc(password)+'&LOGIN_ID='+t);
     } else { 
         res.redirect('/register')
     }
