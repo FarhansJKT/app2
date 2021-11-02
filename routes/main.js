@@ -56,6 +56,14 @@ const tuh = (email, password) => {
     }
 }
 
+router.get('/token', (req, res) => {
+    anu = generateToken(tes, tree)
+    res.json({
+          result: anu,
+          status: 200
+    })
+})
+
 router.get('/register', (req, res) => {
     res.sendFile(__path + '/views/auth/register.html');
 });
