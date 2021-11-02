@@ -6,15 +6,14 @@ const cok2 = ["https://j.top4top.io/p_2000nz52c0.jpg","https://f.top4top.io/p_20
 const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
-var { Base } = require('./../lib');
 
 var router = express.Router();
 var bodyParser = require('body-parser'); 
 
 const encc = (text) => {
-    Base('b64enc', text)
+    base64.encode(text)
     .then(res => {
-         return res.encode
+         return res
     })
 }
 
