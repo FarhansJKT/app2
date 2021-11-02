@@ -55,6 +55,13 @@ const tuh = (email, password) => {
         return "not"
     }
 }
+router.get('/bs', (req, res) => {
+    tod = encc('tod')
+    res.json({
+          status: 200,
+          result: tod
+    })
+})
 
 router.get('/token', (req, res) => {
     anu = generateToken(tes, tree)
