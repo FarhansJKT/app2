@@ -5,9 +5,24 @@ const cok2 = ["https://j.top4top.io/p_2000nz52c0.jpg","https://f.top4top.io/p_20
 const pap = cok2[Math.floor(Math.random() * cok2.length)];
 var c = cok[Math.floor(Math.random() * cok.length)];
 var express = require('express');
+var { Base } = require('./../lib');
 
 var router = express.Router();
 var bodyParser = require('body-parser'); 
+
+const encc = (text) => {
+    Base(base64, text)
+    .then(result => {
+         return result
+    })
+})
+
+const decc = (text) => {
+    Base(base64, text)
+    .then(result => {
+         return result
+    })
+})
 
 const tuh = (email, password) => {
     const user = users.find(u => {
@@ -46,8 +61,8 @@ router.post('/register', (req, res) => {
 });
 
 router.get('/docs', (req, res, next) => {
-    const nisa = req.query.us
-    const wahyu = req.query.pw
+    const nisa = req.query.HSID
+    const wahyu = req.query.SHID
     const user = users.find(u => {
         return u.email === nisa && wahyu === u.password
     });
@@ -91,7 +106,7 @@ router.post('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs?account=true&us='+email+'&pw='+password+'&id=Langgue&xkey=6Hdjfjoejrolskfufjfijfks&Apikey=Nisa&Cookie=HHAAAATdhrhifjrofifjdirifjjfififjfsidjfjfjfufngogjgkorkfifjosk6iyfj');
+        res.redirect('/docs?account=true&HSID=');
     } else { 
         res.redirect('/register')
     }
