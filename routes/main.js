@@ -18,10 +18,8 @@ const encc = (text) => {
 }
 
 const decc = (text) => {
-    Base('b64dec', text)
-    .then(res => {
-         return res.string
-    })
+    anu = base64.decode(text)
+    return `${anu}`
 }
 
 const generateToken = (email, password) => {
@@ -55,7 +53,7 @@ const tuh = (email, password) => {
     }
 }
 router.get('/bs', (req, res) => {
-    tod = encc('tod')
+    tod = decc('dG9k')
     res.json({
           status: 200,
           result: tod
