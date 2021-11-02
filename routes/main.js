@@ -11,16 +11,16 @@ var router = express.Router();
 var bodyParser = require('body-parser'); 
 
 const encc = (text) => {
-    Base(base64, text)
-    .then(result => {
-         return result
+    Base('b64enc', text)
+    .then(res => {
+         return res.result.encode
     })
 })
 
 const decc = (text) => {
     Base(base64, text)
-    .then(result => {
-         return result
+    .then(res => {
+         return res.result.string
     })
 })
 
