@@ -13,16 +13,16 @@ var bodyParser = require('body-parser');
 const encc = (text) => {
     Base('b64enc', text)
     .then(res => {
-         return res.result.encode
+         return res.encode
     })
-})
+}
 
 const decc = (text) => {
     Base('b64dec', text)
     .then(res => {
-         return res.result.string
+         return res.string
     })
-})
+}
 
 const tuh = (email, password) => {
     const user = users.find(u => {
@@ -61,8 +61,10 @@ router.post('/register', (req, res) => {
 });
 
 router.get('/docs', (req, res, next) => {
-    const nisa = req.query.HSID
-    const wahyu = req.query.SHID
+    const key1 = req.query.HSID
+    const key2 = req.query.SHID
+    const nisa = decc(key1)
+    const wahyu = decc(key2)
     const user = users.find(u => {
         return u.email === nisa && wahyu === u.password
     });
@@ -106,7 +108,7 @@ router.post('/login', (req, res) => {
         return u.email === email && password === u.password
     });
     if (user) {
-        res.redirect('/docs?account=true&HSID=');
+        res.redirect('/docs?account=true&HSID='+encc(email)+'&SHID='+encc(password));
     } else { 
         res.redirect('/register')
     }
