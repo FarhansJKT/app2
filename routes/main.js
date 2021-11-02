@@ -24,7 +24,7 @@ const decc = (text) => {
 
 const generateToken = (email, password) => {
 var len = 15
-        var arr = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        var arr = '123456789abcdefghijklmnopqrst${email}uvwxyzABCDEFGHIJKLMNOPQRST${password}UVWXYZ'
         var random = '';
 
         for (var i = len; i > 0; i--) {
@@ -38,8 +38,8 @@ var len = 15
             randomlagi += arr[Math.floor(Math.random() * arr.length)];
         }
 
-        var randomTextNumber = random+randomlagi+'--LOGGER';
-        return randomTextNumber
+        var randomTextNumber = random+randomlagi;
+        return `${randomTextNumber}`
 }
 
 const tuh = (email, password) => {
@@ -61,7 +61,7 @@ router.get('/bs', (req, res) => {
 })
 
 router.get('/token', (req, res) => {
-    anu = generateToken(tes, tree)
+    anu = generateToken('tes', 'tree')
     res.json({
           result: anu,
           status: 200
