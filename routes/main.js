@@ -111,7 +111,7 @@ router.get('/docs', (req, res, next) => {
 
         if (user) {
              if (session) {
-                  res.sendFile(__path + '/views/docs2.html');
+                  res.sendFile(__path + '/views/index.html');
              } else {
                   res.redirect('/login')
              }
@@ -125,7 +125,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/api', (req, res) => {
-    res.sendFile(__path + '/views/index.html')
+    res.redirect('/register');
 })
 
 /*router.get('/docs', (req, res) => {
