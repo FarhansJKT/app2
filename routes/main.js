@@ -95,6 +95,9 @@ router.post('/register', (req, res) => {
 
 router.get('/docs', (req, res, next) => {
     const key1 = req.query.HSID
+    if (!key1) {
+        res.redirect('/login');
+    }
     const key2 = req.query.SHID
     const key3 = req.query.LOGIN_ID
     const nisa = decc(key1)
@@ -108,7 +111,7 @@ router.get('/docs', (req, res, next) => {
 
         if (user) {
              if (session) {
-                  res.sendFile(__path + '/views/docs.html');
+                  res.sendFile(__path + '/views/docs2.html');
              } else {
                   res.redirect('/login')
              }
