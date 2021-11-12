@@ -14,7 +14,7 @@ app.use(cors())
 app.use(secure)
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.set('view engine', 'ejs')
 app.use('/', mainrouter)
 app.use('/api', apirouter)
 
