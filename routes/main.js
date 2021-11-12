@@ -12,6 +12,8 @@ var { Base } = require('./../lib');
 var router = express.Router();
 var bodyParser = require('body-parser'); 
 
+router.set('view engine', 'ejs')
+
 const encc = (text) => {
     anu = base64.encode(text)
     return `${anu}`
@@ -73,7 +75,7 @@ router.get('/dasboardd', (req, res, next) => {
     });
 
         if (user) {
-        res.render(__path + '/views/index.ejs', {
+        res.render('index.ejs', {
                 title: 'Dasboard',
                 user_apikey: '${apik}',
                 email: '${email}'
