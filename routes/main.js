@@ -12,8 +12,6 @@ var { Base } = require('./../lib');
 var router = express.Router();
 var bodyParser = require('body-parser'); 
 
-router.set('view engine', 'ejs')
-
 const encc = (text) => {
     anu = base64.encode(text)
     return `${anu}`
