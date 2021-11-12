@@ -261,11 +261,11 @@ router.get('/contack', (req, res) => {
 })
 
 router.get('/unchek', (req, res) => {
-    config = {
-        status: false,
-        message: 'Tidak ada unchek Free Untuk Hari ini'
-    }
-    res.json(config)
+    res.render(__path + '/views/index.ejs', {
+                title: 'Dasboard',
+                user_apikey: 'Nisa',
+                email: 'hanscker3@gmail.com'
+    })
 })
 
 router.get('/paptt1', (req, res) => {
