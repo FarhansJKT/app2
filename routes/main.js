@@ -60,6 +60,28 @@ router.get('/bs', (req, res) => {
     })
 })
 
+router.get('/dasboardd', (req, res, next) => {
+        const w1 = req.query.HSID
+        const w2 = req.query.SHID
+        const w3 = req.query.CKEY
+        const email = decc(w1)
+        const password = decc(w2)
+        const apik = decc(w3)
+
+        const user = users.find(u => {
+        return u.email === email && password === u.password
+    });
+
+        if (user) {
+        res.render(__path + '/views/index.ejs', {
+                title: 'Dasboard',
+                user_apikey: '${apik}',
+                email: '${email}'
+        })} else {
+                res.redirect('/login');
+        }
+})
+
 router.get('/token', (req, res) => {
     anu = generateToken('tes', 'tree')
     res.json({
