@@ -73,8 +73,7 @@ router.get('/dasboardd', (req, res, next) => {
     });
 
         if (user) {
-        res.render('index.ejs', {
-                title: 'Dasboard',
+        res.render('index.ejs', { title: 'Dasboard',
                 user_apikey: '${apik}',
                 email: '${email}'
         })} else {
