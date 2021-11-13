@@ -73,7 +73,7 @@ router.get('/dasboardd', (req, res, next) => {
     });
 
         if (user) {
-        res.render('index.ejs', { title: 'Dasboard', user_apikey: '${apik}', email: '${email}' })
+                res.render('index.ejs', { title: 'Dasboard', user_apikey: '${apik}', email: '${email}' })
         } else {
                 res.redirect('/login');
         }
@@ -100,7 +100,7 @@ router.post('/register', (req, res) => {
         // Check if user with the same email is also registered
         if (users.find(user => user.email === email)) {
 
-            res.sendFile(__path + '/views/auth/register.html');
+            res.render('auth/register');
         }
 
         // Store user into the database if you are using one
