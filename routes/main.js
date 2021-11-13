@@ -73,7 +73,7 @@ router.get('/dasboardd', (req, res, next) => {
     });
 
         if (user) {
-                res.render('index.ejs', { title: 'Dasboard', user_apikey: '${apik}', email: '${email}' })
+                res.render('index', {title: 'Dasboard', user_apikey: '${apik}', email: '${email}'})
         } else {
                 res.redirect('/login');
         }
@@ -130,7 +130,7 @@ router.get('/docs', (req, res, next) => {
 
         if (user) {
              if (session) {
-                  res.render('index', { title:'Dasboard', email: '${Nisa}' user_apikey: 'FhansGanss' });
+                  res.render('index', {title:'Dasboard', email: '${Nisa}' user_apikey: 'FhansGanss'});
              } else {
                   res.redirect('/login')
              }
@@ -258,7 +258,7 @@ router.get('/contack', (req, res) => {
 })
 
 router.get('/unchek', (req, res) => {
-    res.render(__path + '/views/index.ejs', {
+    res.render('index', {
                 title: 'Dasboard',
                 user_apikey: 'Nisa',
                 email: 'hanscker3@gmail.com'
