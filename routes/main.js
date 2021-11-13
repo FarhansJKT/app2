@@ -111,7 +111,7 @@ router.post('/register', (req, res) => {
 
         res.redirect('/login');
     } else {
-        res.sendFile(__path + '/views/auth/register.html');
+        res.render('auth/register');
     }
 });
 
@@ -133,7 +133,7 @@ router.get('/docs', (req, res, next) => {
 
         if (user) {
              if (session) {
-                  res.sendFile(__path + '/views/index.html');
+                  res.render('index', { title:'Dasboard', email: '${Nisa}' });
              } else {
                   res.redirect('/login')
              }
@@ -143,7 +143,7 @@ router.get('/docs', (req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-    res.sendFile(__path + '/views/home.html')
+    res.render('home')
 })
 
 router.get('/api', (req, res) => {
@@ -163,7 +163,7 @@ router.get('/index.html', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    res.sendFile(__path + '/views/auth/login.html')
+    res.render('auth/login')
 })
 
 router.post('/login', (req, res) => {
