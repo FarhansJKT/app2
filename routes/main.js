@@ -91,7 +91,7 @@ router.get('/token', (req, res) => {
 })
 
 router.get('/register', (req, res) => {
-    res.sendFile(__path + '/views/auth/register.html');
+    res.render('auth/register');
 });
 
 router.post('/register', (req, res) => {
