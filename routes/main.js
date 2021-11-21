@@ -61,15 +61,9 @@ router.get('/bs', (req, res) => {
 })
 
 router.get('/dasboardd', (req, res, next) => {
-        const w1 = req.query.HSID
-        const w2 = req.query.SHID
-        const w3 = req.query.CKEY
-        const email = decc(w1)
-        const password = decc(w2)
-        const apik = decc(w3)
-
+        sess = req.session;
         const user = users.find(u => {
-        return u.email === email && password === u.password
+        return u.email === sess.email && sess.password === u.password
     });
 
         if (user) {
@@ -116,23 +110,17 @@ router.post('/register', (req, res) => {
 });
 
 router.get('/docs', (req, res, next) => {
-    const key1 = req.query.HSID
-    if (!key1) {
-        res.redirect('/login');
-    }
-    const key2 = req.query.SHID
+    sess = req.session;
     const key3 = req.query.LOGIN_ID
-    const nisa = decc(key1)
-    const wahyu = decc(key2)
     const user = users.find(u => {
-        return u.email === nisa && wahyu === u.password
+        return u.email === sess.email && sess.password === u.password
     });
-    const session = tokens.find(i => {
+    const se = tokens.find(i => {
         return i.value === key3
     });
 
         if (user) {
-             if (session) {
+             if (se) {
                   res.sendFile(__path + '/views/index.html');
              } else {
                   res.redirect('/login')
