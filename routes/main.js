@@ -111,7 +111,7 @@ router.post('/register', (req, res) => {
 
 router.get('/docs', (req, res, next) => {
     sess = req.session;
-    const key3 = req.query.LOGIN_ID
+    const key3 = req.query.clientId
     const user = users.find(u => {
         return u.email === sess.email && sess.password === u.password
     });
@@ -164,7 +164,9 @@ router.post('/login', (req, res) => {
     if (user) {
         t = generateToken(email, password)
         tokens.push({value: t});
-        res.redirect('/docs?account=true&HSID='+encc(email)+'&SHID='+encc(password)+'&LOGIN_ID='+t);
+        sess.email = req.body.email;
+        sess.password = req.body.password;
+        res.redirect('/docs?clientId='+t);
     } else { 
         res.redirect('/register')
     }
