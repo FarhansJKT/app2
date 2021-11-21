@@ -155,6 +155,7 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
+    sess = req.session;
     const email = req.body.email;
     const password = req.body.password;
 
